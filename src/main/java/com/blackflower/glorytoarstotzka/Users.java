@@ -27,6 +27,10 @@ public class Users {
         this.emailAddress = builder.emailAddress;
     }
     
+    public static Builder builder() {
+        return new Builder();
+    }
+    
     // End Of Constractor
     
     // Encapsulation Starts
@@ -66,13 +70,13 @@ public class Users {
     
     // Builder Start
     public static class Builder{
-        public long citizenID;
-        public String citizenFirstName;
-        public String citizenLastName;
+        private long citizenID;
+        private String citizenFirstName;
+        private String citizenLastName;
         
-        public String username;
-        public String password;
-        public String emailAddress;
+        private String username;
+        private String password;
+        private String emailAddress;
 
         public Builder() {}
         
