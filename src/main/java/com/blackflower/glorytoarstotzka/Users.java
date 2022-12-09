@@ -17,37 +17,22 @@ public class Users {
     
     private String emailAddress;
     
-    // Encapsulation
-    public long GetCitizenID(){return citizenID;}    
-    public void SetCitizenID(long citizenID) {
-        int numCount = 0;
-        for (long tempID = citizenID; tempID != 0; tempID /= 10, ++numCount) {}
-        
-        if (numCount == 11 && citizenID > 0) {
-            this.citizenID = citizenID;
-        }
-        else{
-            System.out.println("Incorrect value for citizenID!");
-        }
+    // Constractor Starts
+    private Users(Builder builder) {
+        this.citizenID = builder.citizenID;
+	this.citizenFirstName = builder.citizenFirstName;
+	this.citizenLastName = builder.citizenLastName;
+        this.username = builder.username;
+        this.password = builder.password;
+        this.emailAddress = builder.emailAddress;
     }
     
+    // End Of Constractor
+    
+    // Encapsulation Starts
+    public long GetCitizenID(){return citizenID;}
     public String GetCitizenFirstName(){return citizenFirstName;}
-    public void SetCitizenFirstName(String citizenFirstName){
-        if (!citizenFirstName.isEmpty()) {
-            this.citizenFirstName = citizenFirstName;
-        }else{
-            System.out.println("Incorrect value for citizen first name!");
-        }
-    }
-    
     public String GetCitizenLastName(){return citizenLastName;}
-    public void SetCitizenLastName(String citizenLastName){
-        if (!citizenLastName.isEmpty()) {
-            this.citizenLastName = citizenLastName;
-        }else{
-            System.out.println("Incorrect value for citizen last name!");
-        }
-    }
     
     public String GetUsername(){return username;}
     public void SetUsername(String username){
@@ -76,5 +61,67 @@ public class Users {
         }
     }
     
-    //End Of Encapsulation
+    // End Of Encapsulation
+    
+    
+    // Builder Start
+    public static class Builder{
+        public long citizenID;
+        public String citizenFirstName;
+        public String citizenLastName;
+        
+        public String username;
+        public String password;
+        public String emailAddress;
+
+        public Builder() {}
+        
+        public Builder(long citizenID, String citizenFirstName, String citizenLastName){
+            int numCount = 0;
+            for (long tempID = citizenID; tempID != 0; tempID /= 10, ++numCount) {}
+        
+            if (numCount == 11 && citizenID > 0 && !citizenFirstName.isEmpty() && !citizenLastName.isEmpty()) {
+                this.citizenID = citizenID;
+                this.citizenFirstName = citizenFirstName;
+                this.citizenLastName = citizenLastName;
+            }
+            else{
+                System.out.println("Incorrect values for citizenID, citizenFirstName or citizenLastName!");
+            }
+        }
+        
+        public Builder username(String username){
+            if (!username.isEmpty()) {
+                this.username = username;
+            }else{
+                System.out.println("Incorrect value for username!");
+            }
+            
+            return this;
+        }
+        
+        public Builder password(String password){
+            if (!password.isEmpty() && password.length() > 8) {
+                this.password = password;
+            } else {
+                System.out.println("Incorrect value for password!");
+            }
+            return this;
+        }
+        
+        public Builder emailAddress(String emailAddress){
+            if (!emailAddress.isEmpty()) {
+                this.emailAddress = emailAddress;
+            } else {
+                System.out.println("Incorrect value for citizen email address!");
+            }
+            return this;
+        }
+        
+        public Users build() {
+            Users user =  new Users(this);
+            return user;
+	}
+    }
+    // End Of Builder
 }

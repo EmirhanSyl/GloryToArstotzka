@@ -16,12 +16,13 @@ public class Report {
     
     private String reportSubject;
     
-    enum ReportType{
+    public enum ReportType{
         EDUCATION,
         ELECTRICAL,
         WATER_SUPPLY,
         OTHER,
     }
+    
     private ReportType reportType;
     
     public int GetReportID(){return reportID;}
