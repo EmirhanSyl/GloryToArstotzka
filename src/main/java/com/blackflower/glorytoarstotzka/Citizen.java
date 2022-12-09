@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class Citizen extends Users{
     
     // Variables
-    private ArrayList<Report> createdReports = new ArrayList<>();
-    private ArrayList<Report> solvedReports = new ArrayList<>();
+    private final ArrayList<Report> createdReports = new ArrayList<>();
+    private final ArrayList<Report> solvedReports = new ArrayList<>();
     
     
     // Constractor Starts
@@ -31,6 +31,7 @@ public class Citizen extends Users{
         
         for (int i=0; i < createdReports.size(); i++) {
             if (createdReports.get(i).GetReportID() == report.GetReportID()) {
+                createdReports.get(i).SetReportStatue(Report.ReportStatus.COMPLATED);
                 createdReports.remove(i);
                 break;
             }
@@ -42,7 +43,30 @@ public class Citizen extends Users{
     
     // Functions
     public void ListCreatedReports(){
+        for (Report createdReport : createdReports) {
+            createdReport.WriteReport();
+        }
+    }
+    
+    public void ListSolvedReports(){
+        for (Report solvedReport : solvedReports) {
+            solvedReport.WriteReport();
+        }
+    }
+    
+    public void ListAllReports(){
+        ListCreatedReports();
+        ListSolvedReports();
+    }
+    
+    public void CreateReport(String reportSubject, Report.ReportType reportType){
+        if (reportSubject.isEmpty() || reportType == null) {
+            System.out.println("Report subject and report type CANNOT be Empty");
+            return;
+        }
         
+        Report createdReport = ReportMatcher.CreateReport(reportSubject, reportType, this);
+        AddReport(createdReport);
     }
     
     // End Of Functions

@@ -10,13 +10,14 @@ import java.util.ArrayList;
 public class Employee extends Users{
     
     // Variables
-    private ArrayList<Report> responsibleReports = new ArrayList<>();
-    private ArrayList<Report> solvedReports = new ArrayList<>();
+    private final ArrayList<Report> responsibleReports = new ArrayList<>();
+    private final ArrayList<Report> solvedReports = new ArrayList<>();
     
     public enum EmployeeType{
         ENGINEER,
         EDUCATOR,
         ENVIRONMENT_SPECIALIST,
+        GENERAL,
     }
     private final EmployeeType employeeType;
     
@@ -48,8 +49,29 @@ public class Employee extends Users{
     
     public EmployeeType getEmployeeType() {return this.employeeType;}
     
-    
     // End Of Encapsulation
+    
+    
+    // Functions Start
+    public void ListResponsibleReports(){
+        for (Report responsibleReport : responsibleReports) {
+            responsibleReport.WriteReport();
+        }
+    }
+    
+    public void ListSolvedReports(){
+        for (Report solvedReport : solvedReports) {
+            solvedReport.WriteReport();
+        }
+    }
+    
+    public void ListAllReports(){
+        ListResponsibleReports();
+        ListSolvedReports();
+    }
+    
+    // End Of Functions
+    
     
     // Builder Starts
     public static class Builder extends Users.Builder{

@@ -26,6 +26,12 @@ public class Report {
     }
     private final ReportType reportType;
     
+    public enum ReportStatus{
+        IN_PROGRESS,
+        COMPLATED,
+    }
+    private ReportStatus reportStatus;
+    
     
     // Constractor Starts
     public Report(Builder builder){
@@ -37,6 +43,7 @@ public class Report {
         this.reportYear = builder.reportYear;
         this.reportSubject = builder.reportSubject;
         this.reportType = builder.reportType;
+        this.reportStatus = builder.reportStatus;
     }
     
     // End Of Constractor
@@ -56,7 +63,27 @@ public class Report {
     
     public ReportType GetReportType(){return reportType;}
     
+    public ReportStatus GetReportStatus(){return reportStatus;}
+    public void SetReportStatue(ReportStatus status){this.reportStatus = status;}
+    
     // End Of Encapsulation
+    
+    
+    // Functions Start
+    public void WriteReport(){
+        System.out.println();
+        System.out.println("----------------------------------------");
+        System.out.println("Report Title: " + reportType.toString() + " ISSUE");
+        System.out.println("Reporter: " + reporterCitizen.GetCitizenFirstName() + " " + reporterCitizen.GetCitizenLastName());
+        System.out.println("Report ID: " + reportID);
+        System.out.println("Relevant Expert: " + responsibleEmployee.GetCitizenFirstName() + " " + responsibleEmployee.GetCitizenLastName());
+        System.out.println("Report Status: " + reportStatus.toString());
+        System.out.println("Report Subject: " + reportSubject);
+        System.out.println("----------------------------------------");
+        System.out.println();
+    }
+    
+    // End Of Functions
     
     
     // Builder Starts
@@ -71,6 +98,7 @@ public class Report {
 
         String reportSubject;
         ReportType reportType;
+        ReportStatus reportStatus;
 
         public Builder() {}
         
@@ -82,6 +110,7 @@ public class Report {
             this.reportYear = reportYear;
             this.reportSubject = reportSubject;
             this.reportType = type;
+            this.reportStatus = ReportStatus.IN_PROGRESS;
         }
         
         public Builder responsibleEmployee(Employee responsibleEmployee){
@@ -94,4 +123,6 @@ public class Report {
             return report;
         }
     }
+    
+    // End Of Builder
 }
