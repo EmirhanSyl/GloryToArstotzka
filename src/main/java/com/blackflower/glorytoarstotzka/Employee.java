@@ -9,13 +9,32 @@ import java.util.ArrayList;
  */
 public class Employee extends Users{
     
+    // Variables
     private ArrayList<Report> responsibleReports = new ArrayList<>();
     private ArrayList<Report> solvedReports = new ArrayList<>();
     
-    public ArrayList<Report> GetResponsibleReports(){return responsibleReports;}
+    public enum EmployeeType{
+        ENGINEER,
+        EDUCATOR,
+        ENVIRONMENT_SPECIALIST,
+    }
+    private final EmployeeType employeeType;
+    
+    
+    // Constractor Starts
+    public Employee(Builder builder){
+        super(builder);
+        this.employeeType = builder.employeeType;
+    }
+    
+    // End Of Constractor
+    
+    
+    // Encapsulation Starts
+    public ArrayList<Report> GetResponsibleReports(){return this.responsibleReports;}
     public void AddReport(Report report){responsibleReports.add(report);}
     
-    public ArrayList<Report> GetSolvedReports(){return responsibleReports;}
+    public ArrayList<Report> GetSolvedReports(){return this.solvedReports;}
     public void CoplateReport(Report report){
         solvedReports.add(report);
         
@@ -26,4 +45,29 @@ public class Employee extends Users{
             }
         }
     }
+    
+    public EmployeeType getEmployeeType() {return this.employeeType;}
+    
+    
+    // End Of Encapsulation
+    
+    // Builder Starts
+    public static class Builder extends Users.Builder{
+        EmployeeType employeeType;
+
+        public Builder() {}
+        
+        public Builder setEmployeeType(EmployeeType employeeType) {
+            this.employeeType = employeeType;
+            return this;
+        }
+        
+        @Override
+        public Employee build(){
+            Employee employee = new Employee(this);
+            return employee;
+        }
+    }
+    
+    //End Of Builder
 }

@@ -9,12 +9,13 @@ public class Admin extends Users{
     
     public Admin(Builder builder){
         super(builder);
+        this.testInt = builder.testInt;
     }
     
     public static class Builder extends Users.Builder{
         private int testInt;
 
-        Builder() {}
+        public Builder() {}
         
         public Builder(int testInt) {
             this.testInt = testInt;

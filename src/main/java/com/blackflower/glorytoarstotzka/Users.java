@@ -7,10 +7,10 @@ package com.blackflower.glorytoarstotzka;
 public class Users {
     
     // Variables
-    private long citizenID;
+    private final long citizenID;
     
-    private String citizenFirstName;
-    private String citizenLastName;
+    private final String citizenFirstName;
+    private final String citizenLastName;
     
     private String username;
     private String password;
@@ -18,7 +18,7 @@ public class Users {
     private String emailAddress;
     
     // Constractor Starts
-    private Users(Builder builder) {
+    public Users(Builder builder) {
         this.citizenID = builder.citizenID;
 	this.citizenFirstName = builder.citizenFirstName;
 	this.citizenLastName = builder.citizenLastName;
