@@ -32,17 +32,14 @@ public class ReportMatcher {
     }
     
     public static Employee MatchReport(Report.ReportType reportType){
+        Employee responsibleEmployee = null;
         switch (reportType) {
-            case EDUCATION:
-                break;
-            case ELECTRICAL:
-                break;
-            case WATER_SUPPLY:
-                break;
-            case OTHER:
-                break;
+            case EDUCATION -> responsibleEmployee = Database.findMostAvailableEmployee(Employee.EmployeeType.EDUCATOR);
+            case ELECTRICAL -> responsibleEmployee = Database.findMostAvailableEmployee(Employee.EmployeeType.ENGINEER);
+            case WATER_SUPPLY -> responsibleEmployee = Database.findMostAvailableEmployee(Employee.EmployeeType.ENVIRONMENT_SPECIALIST);
+            case OTHER -> responsibleEmployee = Database.findMostAvailableEmployee(Employee.EmployeeType.GENERAL_EXPERT);
         }
-        return null; // change this!
+        return responsibleEmployee;
     }
     
     //  End Of The Functions

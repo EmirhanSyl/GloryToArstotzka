@@ -75,7 +75,29 @@ public class Citizen extends Users{
     // Builder Starts
     public static class Builder extends Users.Builder{
         
-        public Builder() {}
+        protected Builder() {}
+
+        protected Builder(long citizenID, String citizenFirstName, String citizenLastName) {
+            super(citizenID, citizenFirstName, citizenLastName);
+        }
+        
+        @Override
+        public Builder username(String username){
+           super.username(username);
+            return this;
+        }
+        
+        @Override
+        public Builder password(String password){
+           super.password(password);
+            return this;
+        }
+        
+        @Override
+        public Builder emailAddress(String emailAddress){
+           super.emailAddress(emailAddress);
+            return this;
+        }
         
         @Override
         public Citizen build(){

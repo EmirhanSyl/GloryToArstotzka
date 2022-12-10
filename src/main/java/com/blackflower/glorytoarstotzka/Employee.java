@@ -17,7 +17,7 @@ public class Employee extends Users{
         ENGINEER,
         EDUCATOR,
         ENVIRONMENT_SPECIALIST,
-        GENERAL,
+        GENERAL_EXPERT,
     }
     private final EmployeeType employeeType;
     
@@ -70,14 +70,38 @@ public class Employee extends Users{
         ListSolvedReports();
     }
     
+    public int ResponsibleReportCount(){return responsibleReports.size();}
+    
     // End Of Functions
     
     
     // Builder Starts
     public static class Builder extends Users.Builder{
-        EmployeeType employeeType;
+        private EmployeeType employeeType;
 
-        //public Builder() {}
+        protected Builder() {}
+
+        public Builder(long citizenID, String citizenFirstName, String citizenLastName) {
+            super(citizenID, citizenFirstName, citizenLastName);
+        }
+        
+        @Override
+        public Builder username(String username){
+           super.username(username);
+            return this;
+        }
+        
+        @Override
+        public Builder password(String password){
+           super.password(password);
+            return this;
+        }
+        
+        @Override
+        public Builder emailAddress(String emailAddress){
+           super.emailAddress(emailAddress);
+            return this;
+        }
         
         public Builder setEmployeeType(EmployeeType employeeType) {
             this.employeeType = employeeType;

@@ -78,7 +78,7 @@ public class Users {
         private String password;
         private String emailAddress;
 
-        public Builder() {}
+        protected Builder() {}
         
         public Builder(long citizenID, String citizenFirstName, String citizenLastName){
             int numCount = 0;

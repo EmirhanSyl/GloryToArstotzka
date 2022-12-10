@@ -23,26 +23,110 @@ public class Database {
     private final static ArrayList<Admin> adminsOfArstotszka = new ArrayList<>();
     
     
+    // Encapsulation Starts
+    //public static 
+    
+    // End Of Encapsulation
+    
+    
     // Functions Start
     public static void CreateEmployee(String key_password, Employee.EmployeeType type,
             String citizenFirstName, String citizenLastName, String citizenUsername,
             String citizenPassword, String citizenEMailAddress){
         
-        // key_password Control
+        // key_password Control        
+        if (!key_passwordControl(key_password)) {return;}
+        // End of key_password Control
+        
+        Employee createdEmployee = new Employee.Builder(CitizenIDGenerator(), citizenFirstName, citizenLastName)
+                .username(citizenUsername)
+                .password(citizenPassword)
+                .emailAddress(citizenEMailAddress)
+                .setEmployeeType(type)
+                .build();
+        
+        allEmployeesOfArstotszka.add(createdEmployee);
+        switch (type) {
+            case ENGINEER -> engineersOfArstotszka.add(createdEmployee);
+            case EDUCATOR -> educatorsOfArstotszka.add(createdEmployee);
+            case ENVIRONMENT_SPECIALIST -> environmentExpertsOfArstotszka.add(createdEmployee);
+            case GENERAL_EXPERT -> generalExpertsOfArstotszka.add(createdEmployee);
+        }        
+    }
+    
+    public static void CreateCitizen(String key_password, String citizenFirstName, 
+            String citizenLastName, String citizenUsername,
+            String citizenPassword, String citizenEMailAddress){
+        
+        // key_password Control        
+        if (!key_passwordControl(key_password)) {return;}
+        // End of key_password Control
+        
+        Citizen createdCitizen = new Citizen.Builder(CitizenIDGenerator(), citizenFirstName, citizenLastName)
+                .username(citizenUsername)
+                .password(key_password)
+                .emailAddress(citizenEMailAddress)
+                .build();
+        
+        citizensOfArstotszka.add(createdCitizen);
+    }
+    
+    private static long CitizenIDGenerator(){
+        return random.nextLong(10000000000L, 99999999999L);
+    }
+    
+    private static boolean key_passwordControl(String key_password){
+         // key_password Control
         boolean isPasswordCorrect = false;
         for (Admin admin : adminsOfArstotszka) {
             if (admin.GetPassword().equals(key_password)) {
                 isPasswordCorrect = true;
             }
         }
-        if (!isPasswordCorrect) {return;}
+        return isPasswordCorrect;
         // End of key_password Control
-        
-        //Employee createdEmployee = new Employee.Builder(CitizenIDGenerator(), citizenFirstName, citizenLastName)
     }
     
-    private static long CitizenIDGenerator(){
-        return random.nextLong(10000000000L, 99999999999L);
+    public static Employee findMostAvailableEmployee(Employee.EmployeeType type){
+        int mostAvailable = Integer.MAX_VALUE;
+        Employee mostAvailableEmployee = null;
+        
+        switch (type) {
+            case ENGINEER -> {
+                for (Employee engineer : engineersOfArstotszka) {
+                    if (engineer.ResponsibleReportCount() < mostAvailable) {
+                        mostAvailable = engineer.ResponsibleReportCount();
+                        mostAvailableEmployee = engineer;
+                    }
+                }
+            }
+            case EDUCATOR -> {
+                for (Employee educator : educatorsOfArstotszka) {
+                    if (educator.ResponsibleReportCount() < mostAvailable) {
+                        mostAvailable = educator.ResponsibleReportCount();
+                        mostAvailableEmployee = educator;
+                    }
+                }
+            }
+            case ENVIRONMENT_SPECIALIST -> {
+                for (Employee environmentExpert : environmentExpertsOfArstotszka) {
+                    if (environmentExpert.ResponsibleReportCount() < mostAvailable) {
+                        mostAvailable = environmentExpert.ResponsibleReportCount();
+                        mostAvailableEmployee = environmentExpert;
+                    }
+                }
+            }
+            case GENERAL_EXPERT -> {
+                for (Employee generalExpert : generalExpertsOfArstotszka) {
+                    if (generalExpert.ResponsibleReportCount() < mostAvailable) {
+                        mostAvailable = generalExpert.ResponsibleReportCount();
+                        mostAvailableEmployee = generalExpert;
+                    }
+                }
+            }
+        }
+        
+        return mostAvailableEmployee;
     }
     
     // End Of Functions
