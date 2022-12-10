@@ -22,9 +22,12 @@ public class Database {
     private final static ArrayList<Citizen> citizensOfArstotszka = new ArrayList<>();
     private final static ArrayList<Admin> adminsOfArstotszka = new ArrayList<>();
     
+    private final static ArrayList<Report> allReports  = new ArrayList<>();
+    
+    private static boolean isAdminInitiated = false;
     
     // Encapsulation Starts
-    //public static 
+    public static void AddReport(Report report){allReports.add(report);}
     
     // End Of Encapsulation
     
@@ -75,8 +78,7 @@ public class Database {
         return random.nextLong(10000000000L, 99999999999L);
     }
     
-    private static boolean key_passwordControl(String key_password){
-         // key_password Control
+    private static boolean key_passwordControl(String key_password){        
         boolean isPasswordCorrect = false;
         for (Admin admin : adminsOfArstotszka) {
             if (admin.GetPassword().equals(key_password)) {
@@ -84,7 +86,6 @@ public class Database {
             }
         }
         return isPasswordCorrect;
-        // End of key_password Control
     }
     
     public static Employee findMostAvailableEmployee(Employee.EmployeeType type){
@@ -127,6 +128,32 @@ public class Database {
         }
         
         return mostAvailableEmployee;
+    }
+    
+    public static void InitializeAdminAccount(){
+        if (!isAdminInitiated) {
+            Admin admin = new Admin.Builder(CitizenIDGenerator(), "Emirhan", "Soylu")
+                    .username("admin")
+                    .password("GloryToArstotzka!")
+                    .emailAddress("admin@arstotzka.glory")
+                    .build();
+            
+            adminsOfArstotszka.add(admin);
+            
+            if (adminsOfArstotszka.get(0) != null) {
+                isAdminInitiated = true;
+            }
+        }
+    }
+    
+    public static void ListAllReports(String key_password){
+        // key_password Control        
+        if (!key_passwordControl(key_password)) {return;}
+        // End of key_password Control
+        
+        for (Report report : allReports) {
+            report.WriteReport();
+        }
     }
     
     // End Of Functions

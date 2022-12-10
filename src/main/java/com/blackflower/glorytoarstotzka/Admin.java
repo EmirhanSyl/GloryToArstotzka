@@ -6,10 +6,35 @@ package com.blackflower.glorytoarstotzka;
  */
 public class Admin extends Users{
     
+    // Constractor Starts
     public Admin(Builder builder){
         super(builder);
     }
     
+    // End of Constractor
+    
+    
+    // Functions Start
+    public void CreateCitizen(String citizenFirstName, String citizenLastName, 
+            String citizenUsername, String citizenPassword, String citizenEMailAddress){
+        
+        Database.CreateCitizen(super.GetPassword(), citizenFirstName, citizenLastName, citizenUsername, citizenPassword, citizenEMailAddress);
+    }
+    
+    public void CreateEmployee(String citizenFirstName, String citizenLastName, Employee.EmployeeType type, 
+            String citizenUsername, String citizenPassword, String citizenEMailAddress){
+        
+        Database.CreateEmployee(super.GetPassword(), type, citizenFirstName, citizenLastName, citizenUsername, citizenPassword, citizenEMailAddress);
+    }
+    
+    public void ListAllReports(){
+        Database.ListAllReports(super.GetPassword());
+    }
+    
+    // End Of Functions
+    
+    
+    // Builder Starts
     public static class Builder extends Users.Builder{
 
         protected Builder(){}
@@ -42,4 +67,6 @@ public class Admin extends Users{
             return admin;
         }
     }
+    
+    // End Of Builders
 }

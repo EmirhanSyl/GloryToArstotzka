@@ -23,6 +23,7 @@ public class ReportMatcher {
                 .responsibleEmployee(MatchReport(reportType))
                 .build();
         
+        Database.AddReport(report);
         return report;
     }
     
