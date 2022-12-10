@@ -77,7 +77,7 @@ public class Employee extends Users{
     public static class Builder extends Users.Builder{
         EmployeeType employeeType;
 
-        public Builder() {}
+        //public Builder() {}
         
         public Builder setEmployeeType(EmployeeType employeeType) {
             this.employeeType = employeeType;

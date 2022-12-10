@@ -8,8 +8,11 @@ import java.time.LocalDate;
  */
 public class ReportMatcher {
     
+    // Variables
     private static int reportID = 1000000000;
     
+    
+    // Functions Start
     public static Report CreateReport(String reportSubject, Report.ReportType reportType, Citizen reporter){
         int year = LocalDate.now().getYear();
         int month = LocalDate.now().getMonthValue();
@@ -41,4 +44,6 @@ public class ReportMatcher {
         }
         return null; // change this!
     }
+    
+    //  End Of The Functions
 }
