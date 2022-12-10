@@ -62,16 +62,16 @@ public class Database {
             String citizenPassword, String citizenEMailAddress){
         
         // key_password Control        
-        if (!key_passwordControl(key_password)) {return;}
+        if (!key_passwordControl(key_password)) {System.out.println("Validation ERROR!"); return;}
         // End of key_password Control
         
         Citizen createdCitizen = new Citizen.Builder(CitizenIDGenerator(), citizenFirstName, citizenLastName)
                 .username(citizenUsername)
-                .password(key_password)
+                .password(citizenPassword)
                 .emailAddress(citizenEMailAddress)
                 .build();
         
-        citizensOfArstotszka.add(createdCitizen);
+        citizensOfArstotszka.add(createdCitizen);        
     }
     
     private static long CitizenIDGenerator(){

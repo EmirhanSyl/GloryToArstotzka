@@ -12,17 +12,14 @@ public class Login {
         Citizen citizen = Database.CitizenIdentityValidation(username, password);
         
         if (admin != null) {
-            System.out.println("Admin");
             GloryToArstotzka.accountType = GloryToArstotzka.AccountType.ADMIN;
             GloryToArstotzka.SetAdminAccount(admin);
         }
         else if (employee != null) {
-            System.out.println("Emp");
             GloryToArstotzka.accountType = GloryToArstotzka.AccountType.EMPLOYEE;
             GloryToArstotzka.SetEmployeeAccount(employee);
         }
         else if(citizen != null){
-            System.out.println("Citizen");
             GloryToArstotzka.accountType = GloryToArstotzka.AccountType.CITIZEN;
             GloryToArstotzka.SetCitizenAccount(citizen);
         }

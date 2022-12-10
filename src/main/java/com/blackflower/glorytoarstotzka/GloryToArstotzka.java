@@ -29,19 +29,25 @@ public class GloryToArstotzka{
         System.out.println("GLORY TO ARSTOTZKA");
         
         Database.InitializeAdminAccount();
+        //TestUsersCreator.CreateCitizens();
+        //TestUsersCreator.CreateEmployees();
         
         System.out.print("Username: ");
         String username = sc.nextLine();
-        System.out.println("Password: ");
+        System.out.print("Password: ");
         String password = sc.nextLine();
         
         Login.TryLogin(username, password);
+        
+        if (accountType == null) {
+            System.out.println("Account Not Found!");
+            return;
+        }
         
         switch (accountType) {
             case ADMIN -> {AdminDisplay();}
             case EMPLOYEE -> {EmployeeDisplay();}
             case CITIZEN -> {CitizenDisplay();}
-            default -> {System.out.println("Account Not Found!");}
         }
     }
     
