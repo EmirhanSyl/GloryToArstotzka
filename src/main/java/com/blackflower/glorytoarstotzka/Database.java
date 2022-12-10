@@ -146,6 +146,7 @@ public class Database {
         }
     }
     
+    // Print all reports
     public static void ListAllReports(String key_password){
         // key_password Control        
         if (!key_passwordControl(key_password)) {return;}
@@ -154,6 +155,37 @@ public class Database {
         for (Report report : allReports) {
             report.WriteReport();
         }
+    }
+    
+    // Identity Validations
+    public static Admin AdminIdentityValidation(String username, String password){
+        Admin admin = null;
+        for (Admin checkedAdmin : adminsOfArstotszka) {
+            if (checkedAdmin.GetUsername().equalsIgnoreCase(username) && checkedAdmin.GetPassword().equalsIgnoreCase(password)) {
+                admin = checkedAdmin;
+            }
+        }
+        return admin;
+    }
+    
+    public static Employee EmployeeIdentityValidation(String username, String password){
+        Employee employee = null;
+        for (Employee checkedEmployee : allEmployeesOfArstotszka) {
+            if (checkedEmployee.GetUsername().equalsIgnoreCase(username) && checkedEmployee.GetPassword().equalsIgnoreCase(password)) {
+                employee = checkedEmployee;
+            }
+        }
+        return employee;
+    }
+    
+    public static Citizen CitizenIdentityValidation(String username, String password){
+        Citizen citizen = null;
+        for (Citizen checkedCitizen : citizensOfArstotszka) {
+            if (checkedCitizen.GetUsername().equalsIgnoreCase(username) && checkedCitizen.GetPassword().equalsIgnoreCase(password)) {
+                citizen = checkedCitizen;
+            }
+        }
+        return citizen;
     }
     
     // End Of Functions
