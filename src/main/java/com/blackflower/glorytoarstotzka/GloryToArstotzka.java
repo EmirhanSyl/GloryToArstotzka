@@ -101,15 +101,16 @@ public class GloryToArstotzka{
                         adminAccount.CreateEmployee(employeeFirstName, employeeLastName, type, employeeUsername, employeePassword, employeeEMailAddress);
                         continue;
                     case 2:
-                        System.out.print("Employee First Name: ");
+                        System.out.print("Citizen First Name: ");
                         String citizenFirstName = sc.nextLine();
-                        System.out.print("Employee Last Name: ");
+                        citizenFirstName = sc.nextLine(); // Error
+                        System.out.print("Citizen Last Name: ");
                         String citizenLastName = sc.nextLine();
-                        System.out.print("Employee Username: ");
+                        System.out.print("Citizen Username: ");
                         String citizenUsername = sc.nextLine();
-                        System.out.print("Employee Password: ");
+                        System.out.print("Citizen Password: ");
                         String citizenPassword = sc.nextLine();
-                        System.out.print("Employee E-Mail Address: ");
+                        System.out.print("Citizen E-Mail Address: ");
                         String citizenEMailAddress = sc.nextLine();
                         
                         adminAccount.CreateCitizen(citizenFirstName, citizenLastName, citizenUsername, citizenPassword, citizenEMailAddress);
@@ -121,7 +122,7 @@ public class GloryToArstotzka{
                         adminAccount = null;
                         accountType = null;
                         Login();
-                        continue;
+                        return;
                     default:
                         System.out.println("An error occured! Try again");
                         return;
@@ -162,7 +163,7 @@ public class GloryToArstotzka{
                         employeeAccount = null;
                         accountType = null;
                         Login();
-                        continue;
+                        return;
                     default:
                         System.out.println("An error occured! Try again");
                         return;
@@ -182,7 +183,7 @@ public class GloryToArstotzka{
         try {
             while (true) {                
                 System.out.println("""
-                                   Press 2 to list responsible reports
+                                   Press 1 to report something
                                    Press 2 to list responsible reports
                                    Press 3 to list resolved reports
                                    Press 4 to list all reports
@@ -205,6 +206,7 @@ public class GloryToArstotzka{
                         
                         System.out.print("Report Subject: ");
                         String reportSubject = sc.nextLine();
+                        reportSubject = sc.nextLine();
                         
                         citizenAccount.CreateReport(reportSubject, type);
                         continue;
