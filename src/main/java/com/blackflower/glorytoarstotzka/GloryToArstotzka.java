@@ -143,24 +143,40 @@ public class GloryToArstotzka{
             Employee employeeAccount = (Employee)userAccount;
             while (employeeAccount != null) {                
                 System.out.println("""
-                                   Press 1 to list responsible reports
-                                   Press 2 to list resolved reports
-                                   Press 3 to list all reports
-                                   Press 4 to log out""");
+                                   Press 1 to respond a report
+                                   Press 2 to list responsible reports
+                                   Press 3 to list resolved reports
+                                   Press 4 to list all reports
+                                   Press 5 to log out
+                                   """);
                 
-                userInput = TakeInput(4);
+                userInput = TakeInput(5);
                 
                 switch (userInput) {
-                    case 1:                        
+                    case 1:
+                        if (employeeAccount.GetResponsibleReports().isEmpty()) {
+                            System.out.println("There is no respondible report!");
+                            continue;
+                        }
+                        else{
+                            employeeAccount.ReportSelection();
+                            int reportNum = TakeInput(employeeAccount.GetResponsibleReports().size());
+                            System.out.println("Type Respond:");
+                            String respond = sc.next();
+                            respond = sc.nextLine();
+                            employeeAccount.SolveReport(reportNum, respond);
+                        }                        
+                        continue;
+                    case 2:                        
                         employeeAccount.ListResponsibleReports();                        
                         continue;
-                    case 2:
+                    case 3:
                         employeeAccount.ListSolvedReports();
                         continue;
-                    case 3:
+                    case 4:
                         employeeAccount.ListAllReports();
                         continue;
-                    case 4:
+                    case 5:
                         userAccount = null;
                         employeeAccount = null;
                         accountType = null;

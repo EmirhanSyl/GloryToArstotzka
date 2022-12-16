@@ -53,6 +53,21 @@ public class Employee extends Users{
     
     
     // Functions Start
+    
+    public void ReportSelection(){                
+        System.out.println("Select Report: ");
+        
+        for (int i = 0; i < responsibleReports.size(); i++) {
+            System.out.println((i+1) + ": " + responsibleReports.get(i).GetReporterCitizen().GetCitizenFirstName() + " " + responsibleReports.get(i).GetReporterCitizen().GetCitizenLastName());
+        }
+    }
+    public void SolveReport(int reportNum, String respond){
+        Report report = responsibleReports.get(reportNum - 1);
+        report.SetRespond(respond);
+        CoplateReport(report);
+    }
+    
+    
     public void ListResponsibleReports(){
         for (Report responsibleReport : responsibleReports) {
             responsibleReport.WriteReport();

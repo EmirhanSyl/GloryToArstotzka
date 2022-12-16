@@ -18,12 +18,15 @@ public class ReportMatcher {
         int month = LocalDate.now().getMonthValue();
         int day = LocalDate.now().getDayOfMonth();
         
+        Employee respondibleEmployee = MatchReport(reportType);
+        
         Report report = new Report.Builder(GenerateReportID(), reporter, 
                 day, month, year, reportSubject, reportType)
-                .responsibleEmployee(MatchReport(reportType))
+                .responsibleEmployee(respondibleEmployee)
                 .build();
         
         Database.AddReport(report);
+        respondibleEmployee.AddReport(report);
         return report;
     }
     
@@ -39,7 +42,7 @@ public class ReportMatcher {
             case ELECTRICAL -> responsibleEmployee = Database.findMostAvailableEmployee(Employee.EmployeeType.ENGINEER);
             case WATER_SUPPLY -> responsibleEmployee = Database.findMostAvailableEmployee(Employee.EmployeeType.ENVIRONMENT_SPECIALIST);
             case OTHER -> responsibleEmployee = Database.findMostAvailableEmployee(Employee.EmployeeType.GENERAL_EXPERT);
-        }
+        }    
         return responsibleEmployee;
     }
     

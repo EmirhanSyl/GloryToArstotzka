@@ -17,6 +17,7 @@ public class Report {
     private final int reportYear;
     
     private final String reportSubject;
+    private String respond;
     
     public enum ReportType{
         EDUCATION,
@@ -66,6 +67,9 @@ public class Report {
     public ReportStatus GetReportStatus(){return reportStatus;}
     public void SetReportStatue(ReportStatus status){this.reportStatus = status;}
     
+    public String GetRespond(){return respond;}
+    public void SetRespond(String response){this.respond = response;}
+    
     // End Of Encapsulation
     
     
@@ -80,6 +84,7 @@ public class Report {
         System.out.println("Relevant Expert: " + responsibleEmployee.GetCitizenFirstName() + " " + responsibleEmployee.GetCitizenLastName());
         System.out.println("Report Status: " + reportStatus.toString());
         System.out.println("Report Subject: " + reportSubject);
+        System.out.println("Report Respond: " + respond);
         System.out.println("----------------------------------------");
         System.out.println();
     }
