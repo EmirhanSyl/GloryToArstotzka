@@ -9,23 +9,17 @@ import java.util.Scanner;
 public class GloryToArstotzka{
     
     private static Scanner sc = new Scanner(System.in);
+    private static int userInput = 0;
     
     public enum AccountType{
             ADMIN, 
             EMPLOYEE, 
             CITIZEN,
         }
-    public static AccountType accountType;
+    public static AccountType accountType;    
+    private static Users userAccount;
     
-    private static Admin adminAccount;
-    private static Employee employeeAccount;
-    private static Citizen citizenAccount;
-    
-    private static int userInput = 0;
-    
-    public static void SetAdminAccount(Admin admin){adminAccount = admin;}
-    public static void SetEmployeeAccount(Employee employee){employeeAccount = employee;}
-    public static void SetCitizenAccount(Citizen citizen){citizenAccount = citizen;}
+    public static void SetUserAccount(Users user){userAccount = user;}
     
     public static void main(String[] args) {
         System.out.println("GLORY TO ARSTOTZKA");
@@ -34,7 +28,18 @@ public class GloryToArstotzka{
         TestUsersCreator.CreateCitizens();
         TestUsersCreator.CreateEmployees();
         
-        Login();
+        while (true) {
+            if (accountType == null) {
+                Login();
+            }
+            else{
+                switch (accountType) {
+                    case ADMIN -> {AdminDisplay();}
+                    case EMPLOYEE -> {EmployeeDisplay();}
+                    case CITIZEN -> {CitizenDisplay();}
+                }
+            }
+        }
     }
     
     private static void Login(){
@@ -48,23 +53,17 @@ public class GloryToArstotzka{
         
         if (accountType == null) {
             System.out.println("Account Not Found!");
-            return;
-        }
-        
-        switch (accountType) {
-            case ADMIN -> {AdminDisplay();}
-            case EMPLOYEE -> {EmployeeDisplay();}
-            case CITIZEN -> {CitizenDisplay();}
         }
     }
+    
     
     private static void AdminDisplay(){
         System.out.println("Welcome Admin!");
         
-        
-        
         try {
-            while (true) {                
+            Admin adminAccount = (Admin)userAccount;
+            
+            while (adminAccount != null) {                
                 System.out.println("""
                                    Press 1 to add employee
                                    Press 2 to add citizen
@@ -119,6 +118,7 @@ public class GloryToArstotzka{
                         adminAccount.ListAllReports();
                         continue;
                     case 4:
+                        userAccount = null;
                         adminAccount = null;
                         accountType = null;
                         Login();
@@ -132,7 +132,7 @@ public class GloryToArstotzka{
         
         catch (Exception e) {
             System.out.println("Exception Occured");
-            AdminDisplay();
+            Login();
         }
     }
     
@@ -140,7 +140,8 @@ public class GloryToArstotzka{
         System.out.println("Welcome Veteran From Arstotzka!");
         
         try {
-            while (true) {                
+            Employee employeeAccount = (Employee)userAccount;
+            while (employeeAccount != null) {                
                 System.out.println("""
                                    Press 1 to list responsible reports
                                    Press 2 to list resolved reports
@@ -160,6 +161,7 @@ public class GloryToArstotzka{
                         employeeAccount.ListAllReports();
                         continue;
                     case 4:
+                        userAccount = null;
                         employeeAccount = null;
                         accountType = null;
                         Login();
@@ -173,7 +175,7 @@ public class GloryToArstotzka{
         
         catch (Exception e) {
             System.out.println("Exception Occured");
-            EmployeeDisplay();
+            Login();
         }
     }
     
@@ -181,7 +183,8 @@ public class GloryToArstotzka{
         System.out.println("Welcome Citizen of Glorius Arstotzka!");
         
         try {
-            while (true) {                
+            Citizen citizenAccount = (Citizen)userAccount;
+            while (citizenAccount != null) {                
                 System.out.println("""
                                    Press 1 to report something
                                    Press 2 to list responsible reports
@@ -219,6 +222,7 @@ public class GloryToArstotzka{
                     case 4:
                         citizenAccount.ListAllReports();
                     case 5:
+                        userAccount = null;
                         citizenAccount = null;
                         accountType = null;
                         Login();
@@ -232,7 +236,7 @@ public class GloryToArstotzka{
         
         catch (Exception e) {
             System.out.println("Exception Occured");
-            CitizenDisplay();
+            Login();
         }
     }
     

@@ -158,35 +158,51 @@ public class Database {
     }
     
     // Identity Validations
-    public static Admin AdminIdentityValidation(String username, String password){
-        Admin admin = null;
+    public static Users IdentityValidation(String username, String password){
+        Users user = null;
         for (Admin checkedAdmin : adminsOfArstotszka) {
             if (checkedAdmin.GetUsername().equalsIgnoreCase(username) && checkedAdmin.GetPassword().equalsIgnoreCase(password)) {
-                admin = checkedAdmin;
+                user = checkedAdmin;
+                return user;
             }
         }
-        return admin;
-    }
-    
-    public static Employee EmployeeIdentityValidation(String username, String password){
-        Employee employee = null;
+        
         for (Employee checkedEmployee : allEmployeesOfArstotszka) {
             if (checkedEmployee.GetUsername().equalsIgnoreCase(username) && checkedEmployee.GetPassword().equalsIgnoreCase(password)) {
-                employee = checkedEmployee;
+                user = checkedEmployee;
+                return user;
             }
         }
-        return employee;
-    }
-    
-    public static Citizen CitizenIdentityValidation(String username, String password){
-        Citizen citizen = null;
+        
         for (Citizen checkedCitizen : citizensOfArstotszka) {
             if (checkedCitizen.GetUsername().equalsIgnoreCase(username) && checkedCitizen.GetPassword().equalsIgnoreCase(password)) {
-                citizen = checkedCitizen;
+                user = checkedCitizen;
+                return user;
             }
         }
-        return citizen;
+        
+        return user;
     }
+    
+//    public static Employee EmployeeIdentityValidation(String username, String password){
+//        Employee employee = null;
+//        for (Employee checkedEmployee : allEmployeesOfArstotszka) {
+//            if (checkedEmployee.GetUsername().equalsIgnoreCase(username) && checkedEmployee.GetPassword().equalsIgnoreCase(password)) {
+//                employee = checkedEmployee;
+//            }
+//        }
+//        return employee;
+//    }
+//    
+//    public static Citizen CitizenIdentityValidation(String username, String password){
+//        Citizen citizen = null;
+//        for (Citizen checkedCitizen : citizensOfArstotszka) {
+//            if (checkedCitizen.GetUsername().equalsIgnoreCase(username) && checkedCitizen.GetPassword().equalsIgnoreCase(password)) {
+//                citizen = checkedCitizen;
+//            }
+//        }
+//        return citizen;
+//    }
     
     // End Of Functions
     

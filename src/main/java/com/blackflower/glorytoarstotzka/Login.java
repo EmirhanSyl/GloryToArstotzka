@@ -5,23 +5,21 @@ package com.blackflower.glorytoarstotzka;
  * @author emirs
  */
 public class Login {
-    
-    public static void TryLogin(String username, String password){
-        Employee employee = Database.EmployeeIdentityValidation(username, password);
-        Admin admin = Database.AdminIdentityValidation(username, password);
-        Citizen citizen = Database.CitizenIdentityValidation(username, password);
-        
-        if (admin != null) {
-            GloryToArstotzka.accountType = GloryToArstotzka.AccountType.ADMIN;
-            GloryToArstotzka.SetAdminAccount(admin);
-        }
-        else if (employee != null) {
-            GloryToArstotzka.accountType = GloryToArstotzka.AccountType.EMPLOYEE;
-            GloryToArstotzka.SetEmployeeAccount(employee);
-        }
-        else if(citizen != null){
-            GloryToArstotzka.accountType = GloryToArstotzka.AccountType.CITIZEN;
-            GloryToArstotzka.SetCitizenAccount(citizen);
+
+    public static void TryLogin(String username, String password) {
+        Users user = Database.IdentityValidation(username, password);
+
+        if (user != null) {
+            if (user.getClass().equals(Admin.class)) {
+                GloryToArstotzka.accountType = GloryToArstotzka.AccountType.ADMIN;
+                GloryToArstotzka.SetUserAccount(user);
+            } else if (user.getClass().equals(Employee.class)) {
+                GloryToArstotzka.accountType = GloryToArstotzka.AccountType.EMPLOYEE;
+                GloryToArstotzka.SetUserAccount(user);
+            } else if (user.getClass().equals(Citizen.class)) {
+                GloryToArstotzka.accountType = GloryToArstotzka.AccountType.CITIZEN;
+                GloryToArstotzka.SetUserAccount(user);
+            }
         }
     }
 }

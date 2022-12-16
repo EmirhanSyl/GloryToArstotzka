@@ -76,6 +76,7 @@ public class Report {
         System.out.println("Report Title: " + reportType.toString() + " ISSUE");
         System.out.println("Reporter: " + reporterCitizen.GetCitizenFirstName() + " " + reporterCitizen.GetCitizenLastName());
         System.out.println("Report ID: " + reportID);
+        System.out.println("Report Date: " + GetReportDate());
         System.out.println("Relevant Expert: " + responsibleEmployee.GetCitizenFirstName() + " " + responsibleEmployee.GetCitizenLastName());
         System.out.println("Report Status: " + reportStatus.toString());
         System.out.println("Report Subject: " + reportSubject);
