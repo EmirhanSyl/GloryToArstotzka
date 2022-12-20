@@ -23,12 +23,12 @@ public class Database {
     private final static ArrayList<Admin> adminsOfArstotszka = new ArrayList<>();
     
     private final static ArrayList<Report> allReports  = new ArrayList<>();
+    private final static ArrayList<Tax> taxes = new ArrayList<>();
     
     private static boolean isAdminInitiated = false;
     
     // Encapsulation Starts
     public static void AddReport(Report report){allReports.add(report);}
-    
     // End Of Encapsulation
     
     
@@ -72,6 +72,15 @@ public class Database {
                 .build();
         
         citizensOfArstotszka.add(createdCitizen);        
+    }
+    
+    public static void CreateTax(String key_password, Tax tax){
+        
+        // key_password Control        
+        if (!key_passwordControl(key_password)) {System.out.println("Validation ERROR!"); return;}
+        // End of key_password Control
+        
+        taxes.add(tax);
     }
     
     private static long CitizenIDGenerator(){
@@ -157,6 +166,13 @@ public class Database {
         }
     }
     
+    // Print all taxes
+    public static void ListAllTaxes(){
+        for (Tax tax : taxes) {
+            tax.PrintTax();
+        }
+    }
+    
     // Identity Validations
     public static Users IdentityValidation(String username, String password){
         Users user = null;
@@ -183,26 +199,6 @@ public class Database {
         
         return user;
     }
-    
-//    public static Employee EmployeeIdentityValidation(String username, String password){
-//        Employee employee = null;
-//        for (Employee checkedEmployee : allEmployeesOfArstotszka) {
-//            if (checkedEmployee.GetUsername().equalsIgnoreCase(username) && checkedEmployee.GetPassword().equalsIgnoreCase(password)) {
-//                employee = checkedEmployee;
-//            }
-//        }
-//        return employee;
-//    }
-//    
-//    public static Citizen CitizenIdentityValidation(String username, String password){
-//        Citizen citizen = null;
-//        for (Citizen checkedCitizen : citizensOfArstotszka) {
-//            if (checkedCitizen.GetUsername().equalsIgnoreCase(username) && checkedCitizen.GetPassword().equalsIgnoreCase(password)) {
-//                citizen = checkedCitizen;
-//            }
-//        }
-//        return citizen;
-//    }
     
     // End Of Functions
     

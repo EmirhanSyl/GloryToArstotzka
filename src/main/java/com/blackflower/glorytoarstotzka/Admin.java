@@ -31,6 +31,11 @@ public class Admin extends Users{
         Database.ListAllReports(super.GetPassword());
     }
     
+    public void CreateTax(String taxName, int taxAmount){
+        Tax tax = new Tax.Builder(taxName, taxAmount).build();
+        Database.CreateTax(this.GetPassword(), tax);
+    }
+    
     // End Of Functions
     
     

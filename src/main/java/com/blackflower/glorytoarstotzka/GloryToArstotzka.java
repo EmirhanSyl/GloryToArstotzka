@@ -1,5 +1,6 @@
 package com.blackflower.glorytoarstotzka;
 
+import java.util.concurrent.TimeUnit;
 import java.util.Scanner;
 
 /**
@@ -21,8 +22,12 @@ public class GloryToArstotzka{
     
     public static void SetUserAccount(Users user){userAccount = user;}
     
-    public static void main(String[] args) {
-        System.out.println("GLORY TO ARSTOTZKA");
+    public static void main(String[] args) throws InterruptedException {
+        
+        System.out.println(ConsoleColors.RED_BOLD+ 
+                "GLORY TO ARSTOTZKA️" 
+                +ConsoleColors.RESET);
+        
         
         Database.InitializeAdminAccount();
         TestUsersCreator.CreateCitizens();
