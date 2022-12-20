@@ -11,7 +11,7 @@ public class Citizen extends Users{
     // Variables
     private final ArrayList<Report> createdReports = new ArrayList<>();
     private final ArrayList<Report> solvedReports = new ArrayList<>();
-    private final ArrayList<Tax> unpaidTaxes = new ArrayList<>();
+    private final ArrayList<Tax> paidTaxes = new ArrayList<>();
     
     // Constractor Starts
     public Citizen(Builder builder) {
@@ -70,7 +70,11 @@ public class Citizen extends Users{
     }
     
     public void ListTaxes(){
-        
+        Database.ListAllTaxes(paidTaxes);
+    }
+    
+    public void PayTax(){
+        Database.ListUnpaidTaxes(paidTaxes);
     }
     
     // End Of Functions

@@ -70,15 +70,25 @@ public class GloryToArstotzka{
             
             while (adminAccount != null) {                
                 System.out.println("""
+                                   Press 1 to add new tax
                                    Press 1 to add employee
                                    Press 2 to add citizen
                                    Press 3 to list all reports
                                    Press 4 to log out""");
                 
-                userInput = TakeInput(4);
+                userInput = TakeInput(5);     
                 
                 switch (userInput) {
-                    case 1:                        
+                    case 1:
+                        System.out.print("Tax Name: ");
+                        String taxName = sc.nextLine();
+                        taxName = sc.nextLine();
+                        System.out.print("Tax Amount: ");
+                        int taxAmount = sc.nextInt();
+                        
+                        adminAccount.CreateTax(taxName, taxAmount);
+                        continue;
+                    case 2:                        
                         System.out.print("Employee First Name: ");
                         String employeeFirstName = sc.nextLine();
                         employeeFirstName = sc.nextLine(); // Error
@@ -104,7 +114,7 @@ public class GloryToArstotzka{
                         
                         adminAccount.CreateEmployee(employeeFirstName, employeeLastName, type, employeeUsername, employeePassword, employeeEMailAddress);
                         continue;
-                    case 2:
+                    case 3:
                         System.out.print("Citizen First Name: ");
                         String citizenFirstName = sc.nextLine();
                         citizenFirstName = sc.nextLine(); // Error
@@ -119,10 +129,10 @@ public class GloryToArstotzka{
                         
                         adminAccount.CreateCitizen(citizenFirstName, citizenLastName, citizenUsername, citizenPassword, citizenEMailAddress);
                         continue;
-                    case 3:
+                    case 4:
                         adminAccount.ListAllReports();
                         continue;
-                    case 4:
+                    case 5:
                         userAccount = null;
                         adminAccount = null;
                         accountType = null;
@@ -207,16 +217,24 @@ public class GloryToArstotzka{
             Citizen citizenAccount = (Citizen)userAccount;
             while (citizenAccount != null) {                
                 System.out.println("""
-                                   Press 1 to report something
-                                   Press 2 to list responsible reports
-                                   Press 3 to list resolved reports
-                                   Press 4 to list all reports
-                                   Press 5 to log out""");
+                                   Press 1 to list taxes
+                                   press 2 to pay tax
+                                   Press 3 to report something
+                                   Press 4 to list responsible reports
+                                   Press 5 to list resolved reports
+                                   Press 6 to list all reports
+                                   Press 7 to log out""");
                 
-                userInput = TakeInput(5);
+                userInput = TakeInput(7);
                 
                 switch (userInput) {
                     case 1:
+                        citizenAccount.ListTaxes();
+                        continue;
+                    case 2:
+                        citizenAccount.PayTax();
+                        continue;
+                    case 3:
                         System.out.println("Select Report Type");
                         System.out.println("1 - EDUCATION /t 2 - ELECTRICAL ISSUES /t 3 - WATER SUPPLY /t 4 - OTHER");
                         userInput = TakeInput(4);
@@ -234,15 +252,15 @@ public class GloryToArstotzka{
                         
                         citizenAccount.CreateReport(reportSubject, type);
                         continue;
-                    case 2:
+                    case 4:
                         citizenAccount.ListCreatedReports();
                         continue;
-                    case 3:
+                    case 5:
                         citizenAccount.ListSolvedReports();
                         continue;
-                    case 4:
+                    case 6:
                         citizenAccount.ListAllReports();
-                    case 5:
+                    case 7:
                         userAccount = null;
                         citizenAccount = null;
                         accountType = null;

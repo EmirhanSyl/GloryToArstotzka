@@ -81,6 +81,7 @@ public class Database {
         // End of key_password Control
         
         taxes.add(tax);
+        System.out.println("New Tax Added Successfuly");
     }
     
     private static long CitizenIDGenerator(){
@@ -167,9 +168,31 @@ public class Database {
     }
     
     // Print all taxes
-    public static void ListAllTaxes(){
+    public static void ListAllTaxes(ArrayList<Tax> paidTaxs){
         for (Tax tax : taxes) {
-            tax.PrintTax();
+            boolean isPaid = false;
+            for (Tax paidTax : paidTaxs) {
+                if (paidTax.getTaxID() == tax.getTaxID()) {
+                    isPaid = true;
+                }
+            }
+            tax.PrintTax(isPaid);
+        }
+    }
+    
+    // Print unpaid taxes
+    public static void ListUnpaidTaxes(ArrayList<Tax> paidTaxs){
+        for (Tax tax : taxes) {
+            boolean isPaid = false;
+            for (Tax paidTax : paidTaxs) {
+                if (paidTax.getTaxID() == tax.getTaxID()) {
+                    isPaid = true;
+                }
+            }
+            if (!isPaid) {
+                System.out.println("1: ");
+                tax.PrintTax(false);
+            }
         }
     }
     

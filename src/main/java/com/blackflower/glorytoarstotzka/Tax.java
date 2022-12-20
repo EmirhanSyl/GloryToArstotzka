@@ -29,12 +29,14 @@ public class Tax {
     
     
     // Functions Start
-    public void PrintTax() {
+    public void PrintTax(boolean isPaid) {
+        String paidText = (isPaid) ? "Tax Paid. Good Job.": "Pay your Tax!";
         System.out.println();
         System.out.println("----------------------------------------");
         System.out.println("Tax ID: " + taxID);
         System.out.println("Tax Name: " + this.name);
         System.out.println("Tax Amount: " + this.taxAmount);
+        System.out.println("Is Paid: " + paidText);
         System.out.println("----------------------------------------");
         System.out.println();
     }
