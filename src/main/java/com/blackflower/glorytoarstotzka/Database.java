@@ -12,16 +12,7 @@ public class Database {
     // Variables
     static Random random = new Random();
     
-    private final static ArrayList<Employee> allEmployeesOfArstotszka = new ArrayList<>();
-    
-    private final static ArrayList<Employee> engineersOfArstotszka = new ArrayList<>();
-    private final static ArrayList<Employee> educatorsOfArstotszka = new ArrayList<>();
-    private final static ArrayList<Employee> environmentExpertsOfArstotszka = new ArrayList<>();
-    private final static ArrayList<Employee> generalExpertsOfArstotszka = new ArrayList<>();
-    
-    private final static ArrayList<Citizen> citizensOfArstotszka = new ArrayList<>();
-    private final static ArrayList<Admin> adminsOfArstotszka = new ArrayList<>();
-    
+    private final static ArrayList<Users> Arstotzkanians = new ArrayList<>();
     private final static ArrayList<Report> allReports  = new ArrayList<>();
     private final static ArrayList<Tax> taxes = new ArrayList<>();
     
@@ -33,7 +24,7 @@ public class Database {
     
     
     // Functions Start
-    public static void CreateEmployee(String key_password, Employee.EmployeeType type,
+    public static void CreateEmployee(String key_password, String type,
             String citizenFirstName, String citizenLastName, String citizenUsername,
             String citizenPassword, String citizenEMailAddress){
         
@@ -48,13 +39,7 @@ public class Database {
                 .setEmployeeType(type)
                 .build();
         
-        allEmployeesOfArstotszka.add(createdEmployee);
-        switch (type) {
-            case ENGINEER -> engineersOfArstotszka.add(createdEmployee);
-            case EDUCATOR -> educatorsOfArstotszka.add(createdEmployee);
-            case ENVIRONMENT_SPECIALIST -> environmentExpertsOfArstotszka.add(createdEmployee);
-            case GENERAL_EXPERT -> generalExpertsOfArstotszka.add(createdEmployee);
-        }        
+        Arstotzkanians.add(createdEmployee);
     }
     
     public static void CreateCitizen(String key_password, String citizenFirstName, 
@@ -71,7 +56,7 @@ public class Database {
                 .emailAddress(citizenEMailAddress)
                 .build();
         
-        citizensOfArstotszka.add(createdCitizen);        
+        Arstotzkanians.add(createdCitizen);
     }
     
     public static void CreateTax(String key_password, Tax tax){
@@ -88,57 +73,52 @@ public class Database {
         return random.nextLong(10000000000L, 99999999999L);
     }
     
-    private static boolean key_passwordControl(String key_password){        
+    private static boolean key_passwordControl(String key_password) {
         boolean isPasswordCorrect = false;
-        for (Admin admin : adminsOfArstotszka) {
-            if (admin.GetPassword().equals(key_password)) {
-                isPasswordCorrect = true;
+        for (Users user : Arstotzkanians) {
+            if (user instanceof Admin) {
+                
+                Admin admin = (Admin) user;
+                if (admin.GetPassword().equals(key_password)) {
+                    isPasswordCorrect = true;
+                }
             }
         }
         return isPasswordCorrect;
     }
     
-    public static Employee findMostAvailableEmployee(Employee.EmployeeType type){
-        int mostAvailable = Integer.MAX_VALUE;
+    public static Employee findMostAvailableEmployee(String type){
+        
         Employee mostAvailableEmployee = null;
         
         switch (type) {
-            case ENGINEER -> {
-                for (Employee engineer : engineersOfArstotszka) {
-                    if (engineer.ResponsibleReportCount() < mostAvailable) {
-                        mostAvailable = engineer.ResponsibleReportCount();
-                        mostAvailableEmployee = engineer;
-                    }
-                }
-            }
-            case EDUCATOR -> {
-                for (Employee educator : educatorsOfArstotszka) {
-                    if (educator.ResponsibleReportCount() < mostAvailable) {
-                        mostAvailable = educator.ResponsibleReportCount();
-                        mostAvailableEmployee = educator;
-                    }
-                }
-            }
-            case ENVIRONMENT_SPECIALIST -> {
-                for (Employee environmentExpert : environmentExpertsOfArstotszka) {
-                    if (environmentExpert.ResponsibleReportCount() < mostAvailable) {
-                        mostAvailable = environmentExpert.ResponsibleReportCount();
-                        mostAvailableEmployee = environmentExpert;
-                    }
-                }
-            }
-            case GENERAL_EXPERT -> {
-                for (Employee generalExpert : generalExpertsOfArstotszka) {
-                    if (generalExpert.ResponsibleReportCount() < mostAvailable) {
-                        mostAvailable = generalExpert.ResponsibleReportCount();
-                        mostAvailableEmployee = generalExpert;
-                    }
-                }
-            }
+            case "ENGINEER" -> { mostAvailableEmployee = MostAvailableEmployee(0);}
+            case "EDUCATOR" -> { mostAvailableEmployee = MostAvailableEmployee(1);}
+            case "ENVIRONMENT_SPECIALIST" -> { mostAvailableEmployee = MostAvailableEmployee(2);}
+            case "GENERAL_EXPERT" -> { mostAvailableEmployee = MostAvailableEmployee(3);}
         }
         
         return mostAvailableEmployee;
     }
+    
+    private static Employee MostAvailableEmployee(int employeeTypeIndex){
+        
+        int mostAvailable = Integer.MAX_VALUE;
+        Employee mostAvailableEmployee = null;
+        
+        for (Users user : Arstotzkanians) {
+                    if (user instanceof Employee employee) {
+                        if (employee.getEmployeeType().equals(Employee.EmployeeType[employeeTypeIndex])) {
+                            if (employee.ResponsibleReportCount() < mostAvailable) {
+                                mostAvailable = employee.ResponsibleReportCount();
+                                mostAvailableEmployee = employee;
+                            }
+                        }
+                    }
+                }
+        return mostAvailableEmployee;
+    }
+    
     
     public static void InitializeAdminAccount(){
         if (!isAdminInitiated) {
@@ -148,9 +128,9 @@ public class Database {
                     .emailAddress("admin@arstotzka.glory")
                     .build();
             
-            adminsOfArstotszka.add(admin);
+            Arstotzkanians.add(admin);
             
-            if (adminsOfArstotszka.get(0) != null) {
+            if (Arstotzkanians.get(0) != null) {
                 isAdminInitiated = true;
             }
         }
@@ -199,27 +179,12 @@ public class Database {
     // Identity Validations
     public static Users IdentityValidation(String username, String password){
         Users user = null;
-        for (Admin checkedAdmin : adminsOfArstotszka) {
-            if (checkedAdmin.GetUsername().equalsIgnoreCase(username) && checkedAdmin.GetPassword().equalsIgnoreCase(password)) {
-                user = checkedAdmin;
+        for (Users checkedUser : Arstotzkanians) {
+            if (checkedUser.GetUsername().equalsIgnoreCase(username) && checkedUser.GetPassword().equalsIgnoreCase(password)) {
+                user = checkedUser;
                 return user;
             }
-        }
-        
-        for (Employee checkedEmployee : allEmployeesOfArstotszka) {
-            if (checkedEmployee.GetUsername().equalsIgnoreCase(username) && checkedEmployee.GetPassword().equalsIgnoreCase(password)) {
-                user = checkedEmployee;
-                return user;
-            }
-        }
-        
-        for (Citizen checkedCitizen : citizensOfArstotszka) {
-            if (checkedCitizen.GetUsername().equalsIgnoreCase(username) && checkedCitizen.GetPassword().equalsIgnoreCase(password)) {
-                user = checkedCitizen;
-                return user;
-            }
-        }
-        
+        }        
         return user;
     }
     

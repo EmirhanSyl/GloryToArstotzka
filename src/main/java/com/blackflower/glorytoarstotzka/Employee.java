@@ -13,13 +13,15 @@ public class Employee extends Users{
     private final ArrayList<Report> responsibleReports = new ArrayList<>();
     private final ArrayList<Report> solvedReports = new ArrayList<>();
     
-    public enum EmployeeType{
-        ENGINEER,
-        EDUCATOR,
-        ENVIRONMENT_SPECIALIST,
-        GENERAL_EXPERT,
-    }
-    private final EmployeeType employeeType;
+    
+    public static final String[] EmployeeType = {
+        "ENGINEER",
+        "EDUCATOR",
+        "ENVIRONMENT_SPECIALIST",
+        "GENERAL_EXPERT"
+    };
+    
+    private final String employeeType;
     
     
     // Constractor Starts
@@ -47,7 +49,7 @@ public class Employee extends Users{
         }
     }
     
-    public EmployeeType getEmployeeType() {return this.employeeType;}
+    public String getEmployeeType() {return this.employeeType;}
     
     // End Of Encapsulation
     
@@ -92,7 +94,7 @@ public class Employee extends Users{
     
     // Builder Starts
     public static class Builder extends Users.Builder{
-        private EmployeeType employeeType;
+        private String employeeType;
 
         protected Builder() {}
 
@@ -118,7 +120,7 @@ public class Employee extends Users{
             return this;
         }
         
-        public Builder setEmployeeType(EmployeeType employeeType) {
+        public Builder setEmployeeType(String employeeType) {
             this.employeeType = employeeType;
             return this;
         }

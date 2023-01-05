@@ -31,15 +31,10 @@ public class TestUsersCreator {
     public static void CreateEmployees(){
         
         for (int i = 0; i < citizenFirstNames.length; i++) {
-            Employee.EmployeeType type = null;
+            String type = null;
             
             int typer = i % 4;
-            switch (typer) {
-                case 0 -> type = Employee.EmployeeType.EDUCATOR;
-                case 1 -> type = Employee.EmployeeType.ENGINEER;
-                case 2 -> type = Employee.EmployeeType.ENVIRONMENT_SPECIALIST;
-                case 3 -> type = Employee.EmployeeType.GENERAL_EXPERT;
-            }
+            type = Employee.EmployeeType[typer];
             
             Database.CreateEmployee("GloryToArstotzka!", type, employeeFirstNames[i], employeeLastNames[i], employeeUsernames[i], employeePasswords[i], employeeEmailAddresses[i]);
         }        

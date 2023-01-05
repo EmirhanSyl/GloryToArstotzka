@@ -21,7 +21,7 @@ public class Admin extends Users{
         Database.CreateCitizen(super.GetPassword(), citizenFirstName, citizenLastName, citizenUsername, citizenPassword, citizenEMailAddress);
     }
     
-    public void CreateEmployee(String citizenFirstName, String citizenLastName, Employee.EmployeeType type, 
+    public void CreateEmployee(String citizenFirstName, String citizenLastName, String type, 
             String citizenUsername, String citizenPassword, String citizenEMailAddress){
         
         Database.CreateEmployee(super.GetPassword(), type, citizenFirstName, citizenLastName, citizenUsername, citizenPassword, citizenEMailAddress);

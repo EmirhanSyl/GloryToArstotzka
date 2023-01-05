@@ -13,7 +13,7 @@ public class ReportMatcher {
     
     
     // Functions Start
-    public static Report CreateReport(String reportSubject, Report.ReportType reportType, Citizen reporter){
+    public static Report CreateReport(String reportSubject, String reportType, Citizen reporter){
         int year = LocalDate.now().getYear();
         int month = LocalDate.now().getMonthValue();
         int day = LocalDate.now().getDayOfMonth();
@@ -35,13 +35,13 @@ public class ReportMatcher {
         return reportID;
     }
     
-    public static Employee MatchReport(Report.ReportType reportType){
+    public static Employee MatchReport(String reportType){
         Employee responsibleEmployee = null;
         switch (reportType) {
-            case EDUCATION -> responsibleEmployee = Database.findMostAvailableEmployee(Employee.EmployeeType.EDUCATOR);
-            case ELECTRICAL -> responsibleEmployee = Database.findMostAvailableEmployee(Employee.EmployeeType.ENGINEER);
-            case WATER_SUPPLY -> responsibleEmployee = Database.findMostAvailableEmployee(Employee.EmployeeType.ENVIRONMENT_SPECIALIST);
-            case OTHER -> responsibleEmployee = Database.findMostAvailableEmployee(Employee.EmployeeType.GENERAL_EXPERT);
+            case "ELECTRICAL" -> responsibleEmployee = Database.findMostAvailableEmployee(Employee.EmployeeType[0]);
+            case "EDUCATION" -> responsibleEmployee = Database.findMostAvailableEmployee(Employee.EmployeeType[1]);
+            case "WATER_SUPPLY" -> responsibleEmployee = Database.findMostAvailableEmployee(Employee.EmployeeType[2]);
+            case "OTHER" -> responsibleEmployee = Database.findMostAvailableEmployee(Employee.EmployeeType[3]);
         }    
         return responsibleEmployee;
     }

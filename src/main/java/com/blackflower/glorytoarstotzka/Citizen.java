@@ -59,7 +59,7 @@ public class Citizen extends Users{
         ListSolvedReports();
     }
     
-    public void CreateReport(String reportSubject, Report.ReportType reportType){
+    public void CreateReport(String reportSubject, String reportType){
         if (reportSubject.isEmpty() || reportType == null) {
             System.out.println("Report subject and report type CANNOT be Empty");
             return;

@@ -11,16 +11,8 @@ public class GloryToArstotzka{
     
     private static Scanner sc = new Scanner(System.in);
     private static int userInput = 0;
-    
-    public enum AccountType{
-            ADMIN, 
-            EMPLOYEE, 
-            CITIZEN,
-        }
-    public static AccountType accountType;    
+      
     private static Users userAccount;
-    
-    public static void SetUserAccount(Users user){userAccount = user;}
     
     public static void main(String[] args) throws InterruptedException {
         
@@ -28,21 +20,18 @@ public class GloryToArstotzka{
                 "GLORY TO ARSTOTZKA️" 
                 +ConsoleColors.RESET);
         
-        
         Database.InitializeAdminAccount();
         TestUsersCreator.CreateCitizens();
         TestUsersCreator.CreateEmployees();
         
         while (true) {
-            if (accountType == null) {
+            if (userAccount == null) {
                 Login();
             }
             else{
-                switch (accountType) {
-                    case ADMIN -> {AdminDisplay();}
-                    case EMPLOYEE -> {EmployeeDisplay();}
-                    case CITIZEN -> {CitizenDisplay();}
-                }
+                if (userAccount instanceof Admin) { AdminDisplay(); }
+                else if (userAccount instanceof Employee) { EmployeeDisplay(); } 
+                else if (userAccount instanceof Citizen) { CitizenDisplay(); }
             }
         }
     }
@@ -54,9 +43,9 @@ public class GloryToArstotzka{
         System.out.print("Password: ");
         String password = sc.nextLine();
         
-        Login.TryLogin(username, password);
+        userAccount = Database.IdentityValidation(username, password);
         
-        if (accountType == null) {
+        if (userAccount == null) {
             System.out.println("Account Not Found!");
         }
     }
@@ -104,13 +93,8 @@ public class GloryToArstotzka{
                         System.out.println("Select Employee Type");
                         System.out.println("1 - ENGINEER /t 2 - EDUCATOR /t 3 - ENVIRONMENT EXPERT /t 4 - GENERAL EXPERT");
                         userInput = TakeInput(4);
-                        Employee.EmployeeType type = null;
-                        switch(userInput){
-                            case 1 -> type = Employee.EmployeeType.ENGINEER;
-                            case 2 -> type = Employee.EmployeeType.EDUCATOR;
-                            case 3 -> type = Employee.EmployeeType.ENVIRONMENT_SPECIALIST;
-                            case 4 -> type = Employee.EmployeeType.GENERAL_EXPERT;
-                        }
+                        String type;
+                        type = Employee.EmployeeType[userInput - 1];
                         
                         adminAccount.CreateEmployee(employeeFirstName, employeeLastName, type, employeeUsername, employeePassword, employeeEMailAddress);
                         continue;
@@ -135,8 +119,6 @@ public class GloryToArstotzka{
                     case 5:
                         userAccount = null;
                         adminAccount = null;
-                        accountType = null;
-                        Login();
                         return;
                     default:
                         System.out.println("An error occured! Try again");
@@ -194,8 +176,6 @@ public class GloryToArstotzka{
                     case 5:
                         userAccount = null;
                         employeeAccount = null;
-                        accountType = null;
-                        Login();
                         return;
                     default:
                         System.out.println("An error occured! Try again");
@@ -238,13 +218,8 @@ public class GloryToArstotzka{
                         System.out.println("Select Report Type");
                         System.out.println("1 - EDUCATION /t 2 - ELECTRICAL ISSUES /t 3 - WATER SUPPLY /t 4 - OTHER");
                         userInput = TakeInput(4);
-                        Report.ReportType type = null;
-                        switch(userInput){
-                            case 1 -> type = Report.ReportType.EDUCATION;
-                            case 2 -> type = Report.ReportType.ELECTRICAL;
-                            case 3 -> type = Report.ReportType.WATER_SUPPLY;
-                            case 4 -> type = Report.ReportType.OTHER;
-                        }
+                        String type;
+                        type = Report.ReportType[userInput - 1];
                         
                         System.out.print("Report Subject: ");
                         String reportSubject = sc.nextLine();
@@ -263,8 +238,6 @@ public class GloryToArstotzka{
                     case 7:
                         userAccount = null;
                         citizenAccount = null;
-                        accountType = null;
-                        Login();
                         return;
                     default:
                         System.out.println("An error occured! Try again");

@@ -19,13 +19,13 @@ public class Report {
     private final String reportSubject;
     private String respond;
     
-    public enum ReportType{
-        EDUCATION,
-        ELECTRICAL,
-        WATER_SUPPLY,
-        OTHER,
-    }
-    private final ReportType reportType;
+    public final static String[] ReportType = {
+        "EDUCATION",
+        "ELECTRICAL",
+        "WATER_SUPPLY",
+        "OTHER"
+    };
+    private final String reportType;
     
     public enum ReportStatus{
         IN_PROGRESS,
@@ -62,7 +62,7 @@ public class Report {
     
     public String GetReportSubject(){return reportSubject;}
     
-    public ReportType GetReportType(){return reportType;}
+    public String GetReportType(){return reportType;}
     
     public ReportStatus GetReportStatus(){return reportStatus;}
     public void SetReportStatue(ReportStatus status){this.reportStatus = status;}
@@ -77,7 +77,7 @@ public class Report {
     public void WriteReport(){
         System.out.println();
         System.out.println("----------------------------------------");
-        System.out.println("Report Title: " + reportType.toString() + " ISSUE");
+        System.out.println("Report Title: " + reportType + " ISSUE");
         System.out.println("Reporter: " + reporterCitizen.GetCitizenFirstName() + " " + reporterCitizen.GetCitizenLastName());
         System.out.println("Report ID: " + reportID);
         System.out.println("Report Date: " + GetReportDate());
@@ -103,12 +103,12 @@ public class Report {
         int reportYear;
 
         String reportSubject;
-        ReportType reportType;
+        String reportType;
         ReportStatus reportStatus;
 
         public Builder() {}
         
-        public Builder(int reportID, Citizen reporterCitizen, int reportDay, int reportMounth, int reportYear, String reportSubject, ReportType type){
+        public Builder(int reportID, Citizen reporterCitizen, int reportDay, int reportMounth, int reportYear, String reportSubject, String type){
             this.reportID = reportID;
             this.reporterCitizen = reporterCitizen;
             this.reportDay = reportDay;
