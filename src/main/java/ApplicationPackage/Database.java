@@ -1,5 +1,12 @@
-package com.blackflower.glorytoarstotzka;
+package ApplicationPackage;
 
+import UserPackage.Users;
+import UserPackage.Employee;
+import UserPackage.Admin;
+import UserPackage.Citizen;
+import ReportPackage.Report;
+import TaxPackage.Tax;
+import com.blackflower.glorytoarstotzka.ConsoleColors;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -7,7 +14,7 @@ import java.util.Random;
  *
  * @author emirs
  */
-public class Database {
+public final class Database {
     
     // Variables
     static Random random = new Random();
@@ -66,7 +73,7 @@ public class Database {
         // End of key_password Control
         
         taxes.add(tax);
-        System.out.println("New Tax Added Successfuly");
+        System.out.println(ConsoleColors.GREEN + "\nNew Tax Added Successfuly!" + ConsoleColors.RESET);
     }
     
     private static long CitizenIDGenerator(){
@@ -124,7 +131,7 @@ public class Database {
         if (!isAdminInitiated) {
             Admin admin = new Admin.Builder(CitizenIDGenerator(), "Emirhan", "Soylu")
                     .username("admin")
-                    .password("GloryToArstotzka!")
+                    .password("123")
                     .emailAddress("admin@arstotzka.glory")
                     .build();
             
@@ -142,9 +149,8 @@ public class Database {
         if (!key_passwordControl(key_password)) {return;}
         // End of key_password Control
         
-        for (Report report : allReports) {
-            report.WriteReport();
-        }
+        allReports.forEach((report) -> {report.WriteReport();});
+        
     }
     
     // Print all taxes

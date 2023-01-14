@@ -1,5 +1,8 @@
-package com.blackflower.glorytoarstotzka;
+package ReportPackage;
 
+import ApplicationPackage.Database;
+import UserPackage.Employee;
+import UserPackage.Citizen;
 import java.time.LocalDate;  
 
 /**

@@ -1,4 +1,4 @@
-package com.blackflower.glorytoarstotzka;
+package UserPackage;
 
 /**
  *
@@ -104,12 +104,10 @@ public class Users {
             return this;
         }
         
-        public Builder password(String password){
-            if (!password.isEmpty() && password.length() > 8) {
-                this.password = password;
-            } else {
-                System.out.println("Incorrect value for password!");
-            }
+        public Builder password(String password){      
+            
+            this.password = password;   
+            
             return this;
         }
         

@@ -1,4 +1,7 @@
-package com.blackflower.glorytoarstotzka;
+package UserPackage;
+
+import ApplicationPackage.Database;
+import TaxPackage.Tax;
 
 /**
  *
@@ -42,9 +45,9 @@ public class Admin extends Users{
     // Builder Starts
     public static class Builder extends Users.Builder{
 
-        protected Builder(){}
+        public Builder(){}
         
-        protected Builder(long citizenID, String citizenFirstName, String citizenLastName) {
+        public Builder(long citizenID, String citizenFirstName, String citizenLastName) {
             super(citizenID, citizenFirstName, citizenLastName);
         }        
         

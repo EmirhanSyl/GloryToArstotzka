@@ -1,6 +1,7 @@
 
-package com.blackflower.glorytoarstotzka;
+package UserPackage;
 
+import ReportPackage.Report;
 import java.util.ArrayList;
 
 /**

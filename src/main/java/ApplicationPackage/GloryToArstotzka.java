@@ -1,5 +1,13 @@
-package com.blackflower.glorytoarstotzka;
+package ApplicationPackage;
 
+import UserPackage.Users;
+import UserPackage.Employee;
+import UserPackage.Admin;
+import UserPackage.Citizen;
+import com.blackflower.glorytoarstotzka.ConsoleColors;
+import ReportPackage.Report;
+import com.blackflower.glorytoarstotzka.TestUsersCreator;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import java.util.Scanner;
 
@@ -15,7 +23,6 @@ public class GloryToArstotzka{
     private static Users userAccount;
     
     public static void main(String[] args) throws InterruptedException {
-        
         System.out.println(ConsoleColors.RED_BOLD+ 
                 "GLORY TO ARSTOTZKA️" 
                 +ConsoleColors.RESET);
@@ -37,39 +44,41 @@ public class GloryToArstotzka{
     }
     
     private static void Login(){
-        sc.nextLine(); // Error
-        System.out.print("Username: ");
-        String username = sc.nextLine();         
+        sc.nextLine();
+        System.out.print("\nUsername: ");
+        String username = sc.nextLine();
         System.out.print("Password: ");
         String password = sc.nextLine();
         
         userAccount = Database.IdentityValidation(username, password);
         
         if (userAccount == null) {
-            System.out.println("Account Not Found!");
+            System.out.println(ConsoleColors.RED + "Account Not Found!" + ConsoleColors.RESET);
         }
     }
     
     
     private static void AdminDisplay(){
-        System.out.println("Welcome Admin!");
+        System.out.println();
+        System.out.println(ConsoleColors.GREEN + "Welcome Admin!" + ConsoleColors.RESET);
         
         try {
             Admin adminAccount = (Admin)userAccount;
             
-            while (adminAccount != null) {                
+            while (adminAccount != null) {    
+                System.out.println(ConsoleColors.GREEN + "\n\n --------------Welcome " + adminAccount.GetUsername() + " Veteran From Arstotzka--------------" + ConsoleColors.RESET);
                 System.out.println("""
                                    Press 1 to add new tax
-                                   Press 1 to add employee
-                                   Press 2 to add citizen
-                                   Press 3 to list all reports
-                                   Press 4 to log out""");
+                                   Press 2 to add employee
+                                   Press 3 to add citizen
+                                   Press 4 to list all reports
+                                   Press 5 to log out""");
                 
                 userInput = TakeInput(5);     
                 
                 switch (userInput) {
                     case 1:
-                        System.out.print("Tax Name: ");
+                        System.out.print("\n Tax Name: ");
                         String taxName = sc.nextLine();
                         taxName = sc.nextLine();
                         System.out.print("Tax Amount: ");
@@ -78,7 +87,7 @@ public class GloryToArstotzka{
                         adminAccount.CreateTax(taxName, taxAmount);
                         continue;
                     case 2:                        
-                        System.out.print("Employee First Name: ");
+                        System.out.print("\n\nEmployee First Name: ");
                         String employeeFirstName = sc.nextLine();
                         employeeFirstName = sc.nextLine(); // Error
                         System.out.print("Employee Last Name: ");
@@ -91,7 +100,7 @@ public class GloryToArstotzka{
                         String employeeEMailAddress = sc.nextLine();
                         
                         System.out.println("Select Employee Type");
-                        System.out.println("1 - ENGINEER /t 2 - EDUCATOR /t 3 - ENVIRONMENT EXPERT /t 4 - GENERAL EXPERT");
+                        System.out.println("1 - ENGINEER \t 2 - EDUCATOR \t 3 - ENVIRONMENT EXPERT \t 4 - GENERAL EXPERT");
                         userInput = TakeInput(4);
                         String type;
                         type = Employee.EmployeeType[userInput - 1];
@@ -99,7 +108,7 @@ public class GloryToArstotzka{
                         adminAccount.CreateEmployee(employeeFirstName, employeeLastName, type, employeeUsername, employeePassword, employeeEMailAddress);
                         continue;
                     case 3:
-                        System.out.print("Citizen First Name: ");
+                        System.out.print("\nCitizen First Name: ");
                         String citizenFirstName = sc.nextLine();
                         citizenFirstName = sc.nextLine(); // Error
                         System.out.print("Citizen Last Name: ");
@@ -128,17 +137,17 @@ public class GloryToArstotzka{
         } 
         
         catch (Exception e) {
-            System.out.println("Exception Occured");
+            System.out.println(ConsoleColors.RED + "Exception Occured" + ConsoleColors.RESET);
             Login();
         }
     }
     
     private static void EmployeeDisplay(){
-        System.out.println("Welcome Veteran From Arstotzka!");
         
         try {
             Employee employeeAccount = (Employee)userAccount;
             while (employeeAccount != null) {                
+            System.out.println(ConsoleColors.GREEN + "\n\n --------------Welcome " + employeeAccount.GetUsername() + " Veteran From Arstotzka--------------" + ConsoleColors.RESET);
                 System.out.println("""
                                    Press 1 to respond a report
                                    Press 2 to list responsible reports
@@ -176,9 +185,6 @@ public class GloryToArstotzka{
                     case 5:
                         userAccount = null;
                         employeeAccount = null;
-                        return;
-                    default:
-                        System.out.println("An error occured! Try again");
                         return;
                 }
             }
@@ -255,9 +261,14 @@ public class GloryToArstotzka{
     private static int TakeInput(int limit){
         int input;
         
-        do {
+        System.out.print(ConsoleColors.GREEN + "\nEnter your choise: " + ConsoleColors.RESET);
+        input = sc.nextInt();
+        
+        while (input <= 0 || input > limit) {
+           System.out.println(ConsoleColors.RED + "\nPlease enter a valid number!!!" + ConsoleColors.RESET);
+           System.out.print(ConsoleColors.GREEN + "\nEnter your choise: " + ConsoleColors.RESET);
            input = sc.nextInt();
-        } while (input <= 0 && input > limit);
+        }
         
         return input;
     }

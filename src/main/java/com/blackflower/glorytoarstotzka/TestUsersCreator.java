@@ -1,5 +1,8 @@
     package com.blackflower.glorytoarstotzka;
 
+import ApplicationPackage.Database;
+import UserPackage.Employee;
+
 /**
  *
  * @author emirs
@@ -24,7 +27,7 @@ public class TestUsersCreator {
     public static void CreateCitizens() {
 
         for (int i = 0; i < citizenFirstNames.length; i++) {
-            Database.CreateCitizen("GloryToArstotzka!", citizenFirstNames[i], citizenLastNames[i], citizenUsernames[i], citizenPasswords[i], citizenEmailAddresses[i]);
+            Database.CreateCitizen("123", citizenFirstNames[i], citizenLastNames[i], citizenUsernames[i], citizenPasswords[i], citizenEmailAddresses[i]);
         }
     }
     
@@ -36,7 +39,7 @@ public class TestUsersCreator {
             int typer = i % 4;
             type = Employee.EmployeeType[typer];
             
-            Database.CreateEmployee("GloryToArstotzka!", type, employeeFirstNames[i], employeeLastNames[i], employeeUsernames[i], employeePasswords[i], employeeEmailAddresses[i]);
+            Database.CreateEmployee("123", type, employeeFirstNames[i], employeeLastNames[i], employeeUsernames[i], employeePasswords[i], employeeEmailAddresses[i]);
         }        
     }
 }

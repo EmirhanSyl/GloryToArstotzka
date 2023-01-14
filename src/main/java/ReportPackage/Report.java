@@ -1,4 +1,7 @@
-package com.blackflower.glorytoarstotzka;
+package ReportPackage;
+
+import UserPackage.Employee;
+import UserPackage.Citizen;
 
 /**
  *
