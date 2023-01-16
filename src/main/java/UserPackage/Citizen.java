@@ -4,6 +4,7 @@ import ApplicationPackage.Database;
 import ReportPackage.Report;
 import ReportPackage.ReportMatcher;
 import TaxPackage.Tax;
+import com.blackflower.glorytoarstotzka.ConsoleColors;
 import java.util.ArrayList;
 
 /**
@@ -71,6 +72,8 @@ public class Citizen extends Users{
         
         Report createdReport = ReportMatcher.CreateReport(reportSubject, reportType, this);
         AddReport(createdReport);
+        
+        System.out.println(ConsoleColors.GREEN + "\n  Report Created Successfuly!  \n\n" + ConsoleColors.RESET);
     }
     
     public void ListTaxes(){

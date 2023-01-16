@@ -7,8 +7,6 @@ import UserPackage.Citizen;
 import com.blackflower.glorytoarstotzka.ConsoleColors;
 import ReportPackage.Report;
 import com.blackflower.glorytoarstotzka.TestUsersCreator;
-import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 import java.util.Scanner;
 
 /**
@@ -28,8 +26,8 @@ public class GloryToArstotzka{
                 +ConsoleColors.RESET);
         
         Database.InitializeAdminAccount();
-        TestUsersCreator.CreateCitizens();
-        TestUsersCreator.CreateEmployees();
+        //TestUsersCreator.CreateCitizens();
+        //TestUsersCreator.CreateEmployees();
         
         while (true) {
             if (userAccount == null) {
@@ -60,13 +58,12 @@ public class GloryToArstotzka{
     
     private static void AdminDisplay(){
         System.out.println();
-        System.out.println(ConsoleColors.GREEN + "Welcome Admin!" + ConsoleColors.RESET);
         
         try {
             Admin adminAccount = (Admin)userAccount;
             
             while (adminAccount != null) {    
-                System.out.println(ConsoleColors.GREEN + "\n\n --------------Welcome " + adminAccount.GetUsername() + " Veteran From Arstotzka--------------" + ConsoleColors.RESET);
+                System.out.println(ConsoleColors.GREEN + "\n\n --------------Welcome " + adminAccount.GetUsername() + " From Arstotzka--------------" + ConsoleColors.RESET);
                 System.out.println("""
                                    Press 1 to add new tax
                                    Press 2 to add employee
@@ -147,7 +144,7 @@ public class GloryToArstotzka{
         try {
             Employee employeeAccount = (Employee)userAccount;
             while (employeeAccount != null) {                
-            System.out.println(ConsoleColors.GREEN + "\n\n --------------Welcome " + employeeAccount.GetUsername() + " Veteran From Arstotzka--------------" + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.GREEN + "\n\n --------------Welcome " + employeeAccount.GetCitizenFirstName()+ " " + employeeAccount.GetCitizenLastName()+ ", Veteran From Arstotzka--------------" + ConsoleColors.RESET);
                 System.out.println("""
                                    Press 1 to respond a report
                                    Press 2 to list responsible reports
@@ -161,14 +158,14 @@ public class GloryToArstotzka{
                 switch (userInput) {
                     case 1:
                         if (employeeAccount.GetResponsibleReports().isEmpty()) {
-                            System.out.println("There is no respondible report!");
+                            System.out.println(ConsoleColors.RED + "There is no respondible report!");
                             continue;
                         }
                         else{
                             employeeAccount.ReportSelection();
                             int reportNum = TakeInput(employeeAccount.GetResponsibleReports().size());
                             System.out.println("Type Respond:");
-                            String respond = sc.next();
+                            String respond = sc.nextLine();
                             respond = sc.nextLine();
                             employeeAccount.SolveReport(reportNum, respond);
                         }                        
@@ -197,19 +194,18 @@ public class GloryToArstotzka{
     }
     
     private static void CitizenDisplay(){
-        System.out.println("Welcome Citizen of Glorius Arstotzka!");
         
         try {
             Citizen citizenAccount = (Citizen)userAccount;
-            while (citizenAccount != null) {                
+            while (citizenAccount != null) {
+            System.out.println(ConsoleColors.GREEN + "\n\n --------------Welcome " + citizenAccount.GetCitizenFirstName()+ " " + citizenAccount.GetCitizenLastName()+ ", Citizen From Arstotzka--------------" + ConsoleColors.RESET);                
                 System.out.println("""
                                    Press 1 to list taxes
-                                   press 2 to pay tax
-                                   Press 3 to report something
-                                   Press 4 to list responsible reports
-                                   Press 5 to list resolved reports
-                                   Press 6 to list all reports
-                                   Press 7 to log out""");
+                                   Press 2 to report something
+                                   Press 3 to list unresolved reports
+                                   Press 4 to list resolved reports
+                                   Press 5 to list all reports
+                                   Press 6 to log out""");
                 
                 userInput = TakeInput(7);
                 
@@ -218,9 +214,6 @@ public class GloryToArstotzka{
                         citizenAccount.ListTaxes();
                         continue;
                     case 2:
-                        citizenAccount.PayTax();
-                        continue;
-                    case 3:
                         System.out.println("Select Report Type");
                         System.out.println("1 - EDUCATION /t 2 - ELECTRICAL ISSUES /t 3 - WATER SUPPLY /t 4 - OTHER");
                         userInput = TakeInput(4);
@@ -233,18 +226,19 @@ public class GloryToArstotzka{
                         
                         citizenAccount.CreateReport(reportSubject, type);
                         continue;
-                    case 4:
+                    case 3:
                         citizenAccount.ListCreatedReports();
                         continue;
-                    case 5:
+                    case 4:
                         citizenAccount.ListSolvedReports();
                         continue;
-                    case 6:
+                    case 5:
                         citizenAccount.ListAllReports();
-                    case 7:
+                        continue;
+                    case 6:
                         userAccount = null;
                         citizenAccount = null;
-                        return;
+                         break;
                     default:
                         System.out.println("An error occured! Try again");
                         return;

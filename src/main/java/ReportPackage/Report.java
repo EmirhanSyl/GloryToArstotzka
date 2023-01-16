@@ -71,7 +71,7 @@ public class Report {
     public void SetReportStatue(ReportStatus status){this.reportStatus = status;}
     
     public String GetRespond(){return respond;}
-    public void SetRespond(String response){this.respond = response;}
+    public void SetRespond(String respond){this.respond = respond;}
     
     // End Of Encapsulation
     

@@ -41,6 +41,7 @@ public class Employee extends Users{
     public ArrayList<Report> GetSolvedReports(){return this.solvedReports;}
     public void CoplateReport(Report report){
         solvedReports.add(report);
+        report.GetReporterCitizen().ComplateReport(report);
         
         for (int i=0; i < responsibleReports.size(); i++) {
             if (responsibleReports.get(i).GetReportID() == report.GetReportID()) {
@@ -48,6 +49,7 @@ public class Employee extends Users{
                 break;
             }
         }
+        
     }
     
     public String getEmployeeType() {return this.employeeType;}
