@@ -80,10 +80,6 @@ public class Citizen extends Users{
         Database.ListAllTaxes(paidTaxes);
     }
     
-    public void PayTax(){
-        Database.ListUnpaidTaxes(paidTaxes);
-    }
-    
     // End Of Functions
     
     
